@@ -1,0 +1,74 @@
+{
+  "name": "flutter-reference",
+  "displayName": "Flutter Reference",
+  "description": "Reference-count CodeLens above Dart/Flutter declarations, plus a workspace scan for unused files, assets, and pubspec dependencies.",
+  "version": "0.1.0",
+  "publisher": "sumeth-sdk",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:dart"
+  ],
+  "main": "./out/extension.js",
+  "icon": "flutter-reference-dark-256.png",
+  "extensionDependencies": [
+    "Dart-Code.dart-code"
+  ],
+  "contributes": {
+    "configuration": {
+      "title": "Flutter Reference",
+      "properties": {
+        "flutterReference.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show reference count CodeLens for Dart symbols."
+        },
+        "flutterReference.filterDocComments": {
+          "type": "boolean",
+          "default": false,
+          "description": "When true, references that live on a `///` documentation-comment line (e.g. `/// See [build]`) are not counted. Off by default."
+        },
+        "flutterReference.excludePackages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "flutter",
+            "flutter_test"
+          ],
+          "description": "Package names whose references are never counted. Defaults exclude the Flutter framework so overrides like build/initState don't get inflated counts from framework callbacks. Use the special value \"all\" to exclude every package outside your workspace lib/."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "flutterReference.refresh",
+        "title": "Flutter Reference: Refresh"
+      },
+      {
+        "command": "flutterReference.toggle",
+        "title": "Flutter Reference: Toggle On/Off"
+      },
+      {
+        "command": "flutterReference.findUnusedFiles",
+        "title": "Flutter Reference: Find Unused Files, Assets & Dependencies"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0"
+  }
+}
